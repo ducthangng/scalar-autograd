@@ -34,13 +34,31 @@ how many epochs are practical in one sitting.
 
 ## Training
 
-Loss across 100 epochs of full-batch gradient descent (lr=0.05):
+## Training
+
+Full-batch gradient descent, learning rate 0.05, 100 epochs.
 
 ![Training loss curve](assets/loss_curve.png)
 
-Smooth monotonic descent from 0.82 to 0.12. No oscillation, no plateau —
-the shape of a well-conditioned training run with correct gradients and
-a reasonable learning rate.
+| Epoch | Mean BCE loss |
+|------:|--------------:|
+|     0 |        1.0725 |
+|    10 |        0.4078 |
+|    20 |        0.2734 |
+|    30 |        0.2176 |
+|    40 |        0.1862 |
+|    50 |        0.1655 |
+|    60 |        0.1505 |
+|    70 |        0.1391 |
+|    80 |        0.1300 |
+|    90 |        0.1226 |
+|   100 |        0.1163 |
+
+Smooth monotonic descent from 1.07 to 0.12 over 100 epochs. No oscillation,
+no plateau — the shape of a well-conditioned training run with correct
+gradients and a reasonable learning rate.
+
+**Final test accuracy: 95.6%** (vs. sklearn `MLPClassifier(16,)` at 97.4%).
 
 ## Gradient check
 
