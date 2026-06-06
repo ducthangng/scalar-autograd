@@ -4,13 +4,10 @@ A scalar autograd engine and 2-layer MLP, built from scratch in pure Python.
 Trained on the Breast Cancer Wisconsin dataset. **95.6% test accuracy.**
 Every gradient is verified against a numerical derivative to within `1e-9`.
 
-No PyTorch. No TensorFlow. No NumPy inside the engine itself.
-
 ## Why
 
-I wanted to understand backpropagation by writing it, not by importing it.
-The goal is not to beat any baseline — it's to prove I know what frameworks
-like PyTorch do under the hood.
+I wanted to understand backpropagation by writing it, not by importing it or using any related library (of course it gonna slow down, but knowing a nature of a thing is very important).
+The goal is not to beat any baseline — it's to prove I know what frameworks like PyTorch do under the hood.
 
 ## What's in here
 
