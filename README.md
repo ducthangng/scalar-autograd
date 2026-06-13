@@ -26,63 +26,21 @@ W₁(30×16)        W₂(16×1)
 |------------------------------------|--------------:|
 | sklearn `LogisticRegression`       | 0.974         |
 | sklearn `MLPClassifier(16,)`       | 0.974         |
-| **From-scratch scalar MLP (this)** | **0.956**     |
+| From-scratch scalar MLP | **0.956**     |
+| From-scratch scalar MLP with Adam | **0.9737**     |
 
-Trails sklearn's MLP by ~1.8% — explainable by the scalar engine's speed
-limit (~5-10 sec/epoch), which caps how much hyperparameter search and
-how many epochs are practical in one sitting.
-
-## Training
+Similar to sklearn prob.
 
 ## Training
 
 Full-batch gradient descent, learning rate 0.05, 100 epochs.
 
-![Training loss curve](assets/loss_curve.png)
+![Training loss curve](assets_adam/loss_curve.png)
 
-| Epoch | Mean BCE loss |
-|------:|--------------:|
-|     0 |        1.0725 |
-|    10 |        0.4078 |
-|    20 |        0.2734 |
-|    30 |        0.2176 |
-|    40 |        0.1862 |
-|    50 |        0.1655 |
-|    60 |        0.1505 |
-|    70 |        0.1391 |
-|    80 |        0.1300 |
-|    90 |        0.1226 |
-|   100 |        0.1163 |
 
-Smooth monotonic descent from 1.07 to 0.12 over 100 epochs. No oscillation,
-no plateau — the shape of a well-conditioned training run with correct
-gradients and a reasonable learning rate.
+Steep descent from 1.07 to 0.12 in the first epoch, then gradually approach the global minimum.
 
-**Final test accuracy: 95.6%** (vs. sklearn `MLPClassifier(16,)` at 97.4%).
-
-## Gradient check
-
-The single most important artifact in this repo. Analytical gradients from
-the engine vs numerical gradients from central differences `(L(w+ε) - L(w-ε)) / 2ε`:
-
-| idx | analytical    | numerical     | rel_error | ok |
-|----:|--------------:|--------------:|----------:|:--:|
-| 258 |  0.10914758   |  0.10914758   | 5.33e-11  | ✅ |
-|  80 | -0.00260223   | -0.00260223   | 3.28e-10  | ✅ |
-| 360 | -0.01013186   | -0.01013186   | 6.65e-12  | ✅ |
-|  72 | -0.00310053   | -0.00310053   | 1.13e-09  | ✅ |
-| 124 |  0.29320084   |  0.29320084   | 1.76e-11  | ✅ |
-| 367 | -0.02548470   | -0.02548470   | 1.41e-10  | ✅ |
-|  30 |  0.02858372   |  0.02858372   | 8.83e-11  | ✅ |
-| 353 | -0.01757128   | -0.01757128   | 2.64e-10  | ✅ |
-| 356 | -0.02341989   | -0.02341990   | 5.63e-11  | ✅ |
-| 182 |  0.30254190   |  0.30254190   | 1.53e-11  | ✅ |
-
-**All 10 checks pass with relative error below `1e-9`.**
-
-A model can train to high accuracy with subtly wrong gradients on an easy
-dataset. This check removes that ambiguity — the analytical gradients match
-the numerical estimate to machine precision.
+**Final test accuracy: ~97.4%** (~ sklearn `MLPClassifier(16,)` at 97.4%).
 
 ## Writeup
 
