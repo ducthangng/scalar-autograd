@@ -26,14 +26,19 @@ W₁(30×16)        W₂(16×1)
 |------------------------------------|--------------:|
 | sklearn `LogisticRegression`       | 0.974         |
 | sklearn `MLPClassifier(16,)`       | 0.974         |
-| From-scratch scalar MLP | **0.956**     |
-| From-scratch scalar MLP with Adam | **0.9737**     |
+| From-scratch scalar MLP (this) | 0.956     |
+| **From-scratch scalar MLP with Adam (this)** | **0.9737**     |
 
 Similar to sklearn prob.
 
 ## Training
 
 Full-batch gradient descent, learning rate 0.05, 100 epochs.
+
+![Training loss curve](assets/loss_curve.png)
+
+
+Full-batch gradient descent, learning rate 1e-3, 100 epochs.
 
 ![Training loss curve](assets_adam/loss_curve.png)
 
